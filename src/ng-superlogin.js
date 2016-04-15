@@ -264,7 +264,11 @@ angular.module('superlogin', [])
             });
         },
         logout: function(msg) {
-          return $http.post(superloginSession.getConfig().baseUrl + 'logout', {})
+          var post_body_token = {
+            "token" : superloginSession.getSession().token,
+            "password" : superloginSession.getSession().password
+          };
+          return $http.post(superloginSession.getConfig().baseUrl + 'logout', post_body_token)
             .then(function(res) {
               superloginSession.deleteSession();
               $rootScope.$broadcast('sl:logout', msg || 'Logged out');
@@ -276,7 +280,11 @@ angular.module('superlogin', [])
             });
         },
         logoutAll: function(msg) {
-          return $http.post(superloginSession.getConfig().baseUrl + 'logout-all', {})
+          var post_body_token = {
+            "token" : superloginSession.getSession().token,
+            "password" : superloginSession.getSession().password
+          };
+          return $http.post(superloginSession.getConfig().baseUrl + 'logout-all', post_body_token)
             .then(function(res) {
               superloginSession.deleteSession();
               $rootScope.$broadcast('sl:logout', msg || 'Logged out');
